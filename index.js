@@ -9,8 +9,6 @@ const Watchlist = require('./Watchlist.js');
 ReactDOM.render(<Watchlist />, document.querySelector("content"));
 
 /* Auto Populate Watchlist with pre-determined users */
-_WatchlistComponent.getUserData("pgl_dota");
-_WatchlistComponent.getUserData("Forsenlol");
+_WatchlistComponent.getUserData("saltybet");
 _WatchlistComponent.getUserData("test_channel");
 _WatchlistComponent.getUserData("Peeve");
-_WatchlistComponent.getUserData("faraazKhan");
