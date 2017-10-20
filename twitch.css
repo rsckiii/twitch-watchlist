@@ -1,0 +1,192 @@
+/*============CSS Reset==============*/
+html {
+	font-family: 'Roboto', sans-serif;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust:     100%;
+	box-sizing: border-box;
+}
+body {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr;
+	margin: 0;
+	height: 100vh;
+	width: 100vw;
+	background: #6441a5;
+}
+*,
+:before,
+:after {
+	box-sizing: inherit;
+}
+p, h1, h2, h3, h4, h5, h0{
+	margin: 0;
+	color: #fff;
+}
+tr{
+	height: 100px;
+}
+table{
+	height:auto;
+}
+
+
+/*------Grid Layout------*/
+container{
+	display: grid;
+	grid-gap: px;
+	grid-template-columns: 1fr;
+	grid-template-rows: 120px 450px 35px;
+	grid-template-areas:
+		"header"
+		"content"
+		"footer";
+
+	width: 605px;
+	min-height: 300px;
+	margin: auto auto;
+	border-radius: 1px;
+	background: #222;
+}
+
+header{
+	display: grid;
+	grid-area: header;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr auto;
+	grid-template-areas:
+		"appTitle searchBar"
+		"inst inst";
+}
+header>img{
+	grid-area: appTitle;
+	height:auto;
+	width: 200px;
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-bottom: 15px;
+}
+header>input{
+	grid-area: searchBar;
+	margin: auto;
+	border: 2px solid #6441a5;
+	background: #222;
+	color: #C6B9DD;
+	border-radius: 1px;
+	padding: 3px 5px;
+}
+header>input:focus{
+	outline: none;
+	border: 2px solid #C6B9DD;
+}
+::-webkit-input-placeholder{
+	color: #C6B9DD;
+}
+header>instruction{
+	display:block;
+	grid-area: inst;
+	text-align: center;
+	background-color: #8E74BC;
+	color: #6441A4;
+	padding: 3px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+content{
+	grid-area: content;
+	background: #333;
+	padding-top: 10px;
+	max-height: 450px;
+	overflow-y: scroll;
+}
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+banner{
+	display: grid;
+	grid-gap: 0px;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr;
+	grid-template-areas:
+		"logo wrapper";
+
+	width: 585px;
+	height: 100px;
+	background: url('https://images.unsplash.com/photo-1477346611705-65d1883cee1e?dpr=0.800000011920929&auto=format&fit=crop&w=1199&h=800&q=80&cs=tinysrgb&crop=') fixed no-repeat;
+	background-size: cover;
+	color: #fff;
+	position: relative;
+	overflow: hidden;
+	border-radius: 8px;
+	margin: 5px 10px;
+
+	transform: scale(1);
+	transition : all 0.5s;
+}
+banner:hover{
+	transform: scale(1.03);
+	cursor: pointer;
+}
+banner:before{
+	width: 600px;
+	height: 140px;
+	content: "";
+	top: -20px;
+	left: -10px;
+	position: relative;
+	background: inherit;
+	box-shadow: inset 0 0 0 200px rgba(0,0,0,0.2);
+	filter: blur(5px);
+}
+banner>img{
+	grid-area: logo;
+	position: absolute;
+	width: 80px;
+  	height: 80px;
+  	border-radius: 100%;
+	margin-top: 9px;
+	margin-left: 9px;
+}
+banner>wrapper{
+	display:grid;
+	grid-area: wrapper;
+	grid-gap: 0px;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	grid-template-areas:
+		"name vCount"
+		"game status";
+	position: relative;
+	margin-left:-500px;
+	height: inherit;
+}
+wrapper>name{
+grid-area: name;
+font-size: 18px;
+margin-top: 15px;
+}
+wrapper>game{
+grid-area: game;
+font-size: 24px;
+padding-bottom: 30px;
+}
+wrapper>status{
+grid-area: status;
+padding-right: 30px;
+}
+wrapper>vCount{
+grid-area: vCount;
+padding-top: 10px;
+padding-left: 80px;
+}
+
+footer{
+	display: grid;
+	grid-area: footer;
+	padding:8px;
+}
+footer>p{
+	color: #555;
+}
