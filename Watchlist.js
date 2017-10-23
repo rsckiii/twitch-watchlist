@@ -16,6 +16,7 @@ module.exports = class Watchlist extends Component{
     /* Bind methods to Watchlist Component */
     Watchlist.newStreamer = Watchlist.newStreamer.bind(Watchlist);
     Watchlist.getUserData = Watchlist.getUserData.bind(Watchlist);
+    Watchlist.removeStreamer = Watchlist.removeStreamer.bind(Watchlist);
 
     /* Event Listener for submitting request for new streamer data when enter is pressed. */
     document.querySelector("[id='newStreamer']").addEventListener("keydown", function(e){
@@ -52,8 +53,17 @@ module.exports = class Watchlist extends Component{
   */
   newStreamer(details){
     const Watchlist = this;
-    let streamers = Watchlist.state.streamers;
+    let streamers = Watchlist.state.streamers.slice();
     streamers.push(details);
+    Watchlist.setState({streamers: streamers});
+  }
+
+  removeStreamer(streamer){
+    const Watchlist = this;
+    let streamers = Watchlist.state.streamers.slice();
+    streamers = streamers.filter(function(details){
+      return details.name != streamer;
+    });
     Watchlist.setState({streamers: streamers});
   }
 
@@ -69,7 +79,7 @@ module.exports = class Watchlist extends Component{
       logo = data.stream.channel.logo;
       name = truncate(data.stream.channel.display_name, 25);
       game = truncate(data.stream.game, 16);
-      status = online ? truncate(data.stream.channel.status, 55) : "Offline";
+      status = truncate(data.stream.channel.status, 55);
       viewers = data.stream.viewers;
       background = data.stream.channel.profile_banner;
     }
@@ -103,7 +113,7 @@ module.exports = class Watchlist extends Component{
           /* Unpack array of streamers into React Components using Map */
           (function(){
             return streamers.map(function(v, i){
-              return <Streamer key={i} details={v} />
+              return <Streamer key={v.name} details={v} removeStreamer={Watchlist.removeStreamer}/>
             })
           })()
         }

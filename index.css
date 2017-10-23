@@ -149,6 +149,9 @@ banner>img{
 	margin-top: 9px;
 	margin-left: 9px;
 }
+banner>img:hover{
+
+}
 banner>wrapper{
 	display:grid;
 	grid-area: wrapper;

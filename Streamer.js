@@ -7,6 +7,7 @@ module.exports = class Streamer extends Component{
     super(props);
     const Streamer = this;
     let details = props.details;
+
     Streamer.state = {
       logo: details.logo,
       name: details.name,
@@ -15,14 +16,42 @@ module.exports = class Streamer extends Component{
       viewers: details.viewers,
       background: details.background
     }
+
+    Streamer.removeSelf = function(){
+      props.removeStreamer(Streamer.state.name);
+    };
   }
 
+  componentDidMount(){
+    const Streamer = this;
+    let name = Streamer.state.name;
+    let row = document.querySelector(`[streamer="${name}"]`);
+    let logo = document.querySelector(`row[streamer="${name}"]>banner>img`);
+
+    row.addEventListener("click", function(){
+      if(!Streamer.state.mouseOverLogo){
+        let channel = window.open(`http://www.twitch.tv/${name}`, '_blank');
+        channel.focus();
+      }
+    });
+    logo.addEventListener("click", function(){
+      Streamer.removeSelf();
+    });
+
+    logo.addEventListener("mouseover", function(){
+      Streamer.setState({mouseOverLogo:true});
+    });
+    logo.addEventListener("mouseout", function(){
+      Streamer.setState({mouseOverLogo:false});
+    });
+  }
   render(){
     const Streamer = this;
+    let mouseOverLogo = Streamer.state.mouseOverLogo;
 
     /* Unpacking Streamer.state */
     let details = Streamer.state;
-    let logo = details.logo;
+    let logo = mouseOverLogo ? "http://www.iconsdb.com/icons/preview/red/x-mark-3-xxl.png" : details.logo;
     let name = details.name;
     let game = details.game;
     let status = details.status;
@@ -32,10 +61,7 @@ module.exports = class Streamer extends Component{
 
     /* Returning Row template */
     return (
-      <row onClick={function(){
-        let channel = window.open(`http://www.twitch.tv/${name}`, '_blank');
-        channel.focus();
-      }}>
+      <row streamer={name}>
         <banner style={{background: `url("${background}")`}}>
           <img src={logo}></img>
           <wrapper>
